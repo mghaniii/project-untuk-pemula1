@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pomodoro Focus Café</title>
+    <meta
+      name="description"
+      content="Aplikasi timer fokus dengan suara latar relaksasi dan tema cafe minimalis."
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            boxShadow: {
+              glow: '0 10px 30px rgba(15, 118, 110, 0.25)',
+            },
+            colors: {
+              cafe: {
+                50: '#f8f5f1',
+                100: '#f1e8dc',
+                200: '#e6d7c1',
+                300: '#d9b48a',
+                400: '#c78f5a',
+                500: '#b7703d',
+                600: '#9f5a2d',
+                700: '#7b4327',
+                800: '#563226',
+                900: '#2d1f1d',
+              },
+            },
+          },
+        },
+      };
+    </script>
+    <link rel="stylesheet" href="css/style.css?v=2" />
+  </head>
+  <body class="min-h-screen antialiased">
+    <div class="page-shell">
+      <div class="absolute inset-0 bg-pattern"></div>
+
+      <main class="relative z-10 mx-auto flex max-w-6xl flex-col gap-8 px-4 py-8 md:px-8 lg:flex-row lg:items-stretch lg:justify-center">
+        <section class="glass-panel w-full max-w-xl p-6 md:p-8">
+          <div class="mb-6 flex items-center justify-between gap-4">
+            <div>
+              <p class="text-sm uppercase tracking-[0.28rem] text-emerald-100/80">Focus Studio</p>
+              <h1 class="mt-2 text-3xl font-bold text-white md:text-4xl">Pomodoro Focus Café</h1>
+            </div>
+            <span id="modeBadge" class="mode-badge">Focus</span>
+          </div>
+
+          <div class="mb-6 rounded-3xl border border-white/10 bg-white/5 p-5 text-center shadow-glow backdrop-blur-sm">
+            <div id="timerDisplay" class="timer-display" aria-live="polite">25:00</div>
+          </div>
+
+          <div class="mb-6 flex flex-wrap items-center justify-center gap-3">
+            <button class="mode-btn active" data-mode="focus">Focus</button>
+            <button class="mode-btn" data-mode="shortBreak">Short Break</button>
+            <button class="mode-btn" data-mode="longBreak">Long Break</button>
+          </div>
+
+          <div class="mb-6 flex flex-wrap items-center justify-center gap-3">
+            <button id="startBtn" class="action-btn primary">Start</button>
+            <button id="pauseBtn" class="action-btn">Pause</button>
+            <button id="resetBtn" class="action-btn">Reset</button>
+          </div>
+
+          <div class="rounded-2xl border border-white/10 bg-slate-900/30 p-4">
+            <div class="mb-2 flex items-center justify-between text-sm text-emerald-100/80">
+              <span>Sesi Fokus</span>
+              <span id="sessionCounterText">0 / 4</span>
+            </div>
+            <div id="sessionIndicator" class="flex items-center gap-2" aria-label="indikator sesi fokus"></div>
+          </div>
+        </section>
+
+        <aside class="glass-panel w-full max-w-md p-6 md:p-8">
+          <div class="mb-6 flex items-center justify-between">
+            <div>
+              <p class="text-sm uppercase tracking-[0.28rem] text-amber-100/80">Ambient</p>
+              <h2 class="mt-2 text-2xl font-semibold text-white">Suara Latar</h2>
+            </div>
+            <div class="status-dot" id="audioStatusDot"></div>
+          </div>
+
+          <div id="ambientButtonsList" class="ambient-grid mb-6"></div>
+
+          <div class="mb-4">
+            <button id="ambientToggleBtn" class="ambient-toggle" type="button">
+              <span id="ambientToggleIcon">🔇</span>
+              <span id="ambientToggleLabel">Suara Mati</span>
+            </button>
+          </div>
+
+          <div class="rounded-2xl border border-white/10 bg-white/5 p-4">
+            <div class="mb-2 flex items-center justify-between text-sm text-emerald-100/80">
+              <span>Volume</span>
+              <span id="volumeLabel">50%</span>
+            </div>
+            <input
+              id="volumeControl"
+              type="range"
+              min="0"
+              max="100"
+              value="50"
+              class="volume-slider w-full"
+              aria-label="Volume ambient sound"
+            />
+            <p class="mt-3 text-xs text-slate-300/80">
+              Catatan: Beberapa audio , untuk fitur volume, mungkin tidak berfungsi karena keterbatasan dari sumber audio tersebut.
+            </p>
+          </div>
+
+          <div class="mt-6 rounded-2xl border border-emerald-300/20 bg-emerald-500/10 p-4 text-sm text-emerald-50/90">
+            <p id="statusText">Kondisi siap. Mulai fokus dan nikmati suasana tenang.</p>
+          </div>
+        </aside>
+      </main>
+    </div>
+
+    <iframe
+      id="ambientPlayer"
+      title="Ambient player"
+      allow="autoplay; encrypted-media; picture-in-picture"
+      allowfullscreen
+      style="display:none; position:absolute; width:0; height:0; border:0; opacity:0; pointer-events:none;"
+    ></iframe>
+
+<script src="./js/timer.js?v=2"></script>
+<script src="./js/audio.js?v=2"></script>
+<script src="./js/app.js?v=2"></script>
+  </body>
+</html>
